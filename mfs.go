@@ -6,7 +6,6 @@ const (
 
 type FileSystem struct {
 	rootDir *Dir
-	pwd     *Dir
 }
 
 func New() *FileSystem {
@@ -17,18 +16,38 @@ func (fs *FileSystem) CreateFile(path string) *File {
 
 }
 
-func (fs *FileSystem) CreateDir(path string) {
+func (fs *FileSystem) CreateDir(path, name string) {
 
 }
 
-func (fs *FileSystem) ChangeDir(path string) error {
+func (fs *FileSystem) ReadDir(path string) *[]Dir {
 
 }
 
 type Dir struct {
 	Name  string
-	dirs  []Dir
-	files []File
+	dirs  []*Dir
+	files []*File
+}
+
+func (dir *Dir) getDir(name string) *Dir {
+	for _, d := range dir.dirs {
+		if d.Name == name {
+			return d
+		}
+	}
+
+	return nil
+}
+
+func (dir *Dir) getFile(name string) *File {
+	for _, f := range dir.files {
+		if f.Name == name {
+			return f
+		}
+	}
+
+	return nil
 }
 
 type File struct {
