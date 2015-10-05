@@ -106,3 +106,12 @@ func (f *File) Read(p []byte) (int, error) {
 	}
 	return n, nil
 }
+
+func (f *File) ReadAt(p []byte, offset int64) (int, error) {
+	n := 0
+	for i := offset; i < int64(len(f.data)); i++ {
+		p[n] = f.data[i]
+		n++
+	}
+	return n, nil
+}
